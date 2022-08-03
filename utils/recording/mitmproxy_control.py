@@ -164,7 +164,7 @@ class Counter:
         for i in self.url:
             # 这里主要是判断，如果我们conf.py中有配置这个域名，则用例中展示 ”${{host}}“，动态获取用例host
             # 大家可以在这里改成自己公司的host地址
-            if 'https://www.wanandroid.com' in url:
+            if 'https://lo9.glkyun.cn' in url:
                 host = '${{host}}'
             elif i in url:
                 host = i
@@ -213,10 +213,10 @@ class Counter:
         return result, url_path
 
 
-# 1、本机需要设置代理，默认端口为: 8080
+# 1、本机需要设置代理，默认端口为: 8081
 # 2、控制台输入 mitmweb -s .\utils\recording\mitmproxy_control.py - p 8888命令开启代理模式进行录制
 
 
 addons = [
-    Counter(["http://work.test.feng-go.com/", "http://merchant.test.feng-go.com"])
+    Counter(["https://lo9.glkyun.cn"])
     ]
