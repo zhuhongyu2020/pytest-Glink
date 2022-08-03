@@ -1,12 +1,4 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-"""
-# @Time    : 2022/4/25 20:02
-# @Author  : 余少琪
-# @Email   : 1603453211@qq.com
-# @File    : testcase_template
-# @describe: 用例模板
-"""
+
 
 import datetime
 import os

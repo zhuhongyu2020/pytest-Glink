@@ -1,8 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-# @Time   : 2022/3/29 14:59
-# @Author : 余少琪
 描述: 发送企业微信通知
 """
 

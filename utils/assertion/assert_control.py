@@ -1,7 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time   : 2022/3/28 14:18
-# @Author : 余少琪
+
 """
 断言类型封装，支持json响应断言、数据库断言
 """

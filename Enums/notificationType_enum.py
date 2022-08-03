@@ -1,7 +1,6 @@
-#!/usr/bin/env python
+
 # -*- coding: utf-8 -*-
-# @Time   : 2022/3/30 23:06
-# @Author : 余少琪
+
 
 from enum import Enum
 

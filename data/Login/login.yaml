@@ -1,269 +1,94 @@
 # 公共参数
 case_common:
-  allureEpic: 开发平台接口
+  allureEpic: Glink平台
   allureFeature: 登录模块
   allureStory: 登录
 
 login_01:
-    host: ${{host()}}
-    url: /user/login
-    method: POST
-    detail: 正常登录
-    headers:
-#      Content-Type: multipart/form-data;
-    # 请求的数据，是 params 还是 json、或者file、data
-    requestType: data
-    # 是否执行，空或者 true 都会执行
-    is_run:
-    data:
-      username: '18800000001'
-      password: '123456'
-      # 是否有依赖业务，为空或者false则表示没有
-    dependence_case: False
-        # 依赖的数据
-    dependence_case_data:
-    assert:
-      # 断言接口状态码
-      errorCode:
-        jsonpath: $.errorCode
-        type: ==
-        value: 0
-        AssertType:
-      # 断言接口返回的username
-      username:
-        jsonpath: $.data.username
-        type: ==
-        value: '18800000001'
-        AssertType:
-    sql:
+  host: ${{host()}}
+  url: /sso/Account/LoginRedirect
+  method: POST
+  detail: 刘思瑾账号正确登录
+  headers:
+    Content-Type: application/json;charset=UTF-8
+  # 请求的数据，是 params 还是 json、或者file、date
+  requestType: json
+  # 是否执行，空或者 true 都会执行
+  is_run:
+  data:
+    {
+      "ReturnUrl": "/sso/connect/authorize/callback?client_id=lo_ptl_client&redirect_uri=https%3A%2F%2Flo9.glkyun.cn%2Fportal%2Foidc%2Fcallbackn.html&response_type=code&scope=openid%20profile%20lo_ptl%20lo_ofs%20lo_g_doc%20lo_gw&state=a63a5b41e89c48f7ae9a74f49c55a605&code_challenge=3Ye4G3L5Y6Eqv4CBscqnbT1kYw3wqE5wPIxP2PFV4QE&code_challenge_method=S256&response_mode=query",
+      "__RequestVerificationToken": "", "LoginId": "liusj-e",
+      "LoginIdentity": "b0039003e003900280077002700770028007b006a00780078007c00640079006f", "ImageAuthCode": "",
+      "RememberLogin": "true" }
+  # 是否有依赖业务，为空或者false则表示没有
+  dependence_case: False
+  # 依赖的数据
+  dependence_case_data:
+  assert:
+    # 断言响应状态码status_code
+    status_code: 200
+    # 断言接口返回的success
+    success:
+      jsonpath: $.success
+      type: ==
+      value: true
+      AssertType:
+    # 断言接口返回的errorMsg
+    errorMsg:
+      jsonpath: $.errMsg
+      type: ==
+      value: 短信验证码功能未开启！
+      AssertType:
+    # 断言接口返回的errorCode
+    errorCode:
+      jsonpath: $.isPasswordModify
+      type: ==
+      value: false
+      AssertType:
 
+  sql:
 login_02:
-    host: ${{host()}}
-    url: /user/login
-    method: POST
-    detail: 输入错误的密码
-    headers:
-      Content-Type: multipart/form-data;
-    # 请求的数据，是 params 还是 json、或者file、data
-    requestType: data
-    # 是否执行，空或者 true 都会执行
-    is_run:
-    data:
-      username: '18800000001'
-      password: '12345'
-      # 是否有依赖业务，为空或者false则表示没有
-    dependence_case: False
-        # 依赖的数据
-    dependence_case_data:
-    assert:
-      # 断言接口状态码
-      errorCode:
-        jsonpath: $.errorCode
-        type: ==
-        value: -1
-        AssertType:
-      # 断言接口返回的username
-      errorMsg:
-        jsonpath: $.errorMsg
-        type: ==
-        value: "账号密码不匹配！"
-        AssertType:
-    sql:
+  host: ${{host()}}
+  url: /sso/Account/LoginRedirect
+  method: POST
+  detail: 王彦炳账号正确登录
+  headers:
+    Content-Type: application/json;charset=UTF-8
+  # 请求的数据，是 params 还是 json、或者file、date
+  requestType: json
+  # 是否执行，空或者 true 都会执行
+  is_run:
+  data:
+    {
+      "ReturnUrl": "/sso/connect/authorize/callback?client_id=lo_ptl_client&redirect_uri=https%3A%2F%2Flo9.glkyun.cn%2Fportal%2Foidc%2Fcallbackn.html&response_type=code&scope=openid%20profile%20lo_ptl%20lo_ofs%20lo_g_doc%20lo_gw&state=a63a5b41e89c48f7ae9a74f49c55a605&code_challenge=3Ye4G3L5Y6Eqv4CBscqnbT1kYw3wqE5wPIxP2PFV4QE&code_challenge_method=S256&response_mode=query",
+      "__RequestVerificationToken": "", "LoginId": "wangyb-h",
+      "LoginIdentity": "b0039003e003900280077002700770028007b006a00780078007c00640079006f", "ImageAuthCode": "",
+      "RememberLogin": "true" }
+  # 是否有依赖业务，为空或者false则表示没有
+  dependence_case: False
+  # 依赖的数据
+  dependence_case_data:
+  assert:
+    # 断言响应状态码status_code
+    status_code: 200
+    # 断言接口返回的success
+    success:
+      jsonpath: $.success
+      type: ==
+      value: true
+      AssertType:
+    # 断言接口返回的errorMsg
+    errorMsg:
+      jsonpath: $.errMsg
+      type: ==
+      value: 短信验证码功能未开启！
+      AssertType:
+    # 断言接口返回的errorCode
+    errorCode:
+      jsonpath: $.isPasswordModify
+      type: ==
+      value: false
+      AssertType:
 
-login_03:
-    host: ${{host()}}
-    url: /user/login
-    method: POST
-    detail: 登录密码为空
-    headers:
-      Content-Type: multipart/form-data;
-    # 请求的数据，是 params 还是 json、或者file、data
-    requestType: data
-    # 是否执行，空或者 true 都会执行
-    is_run:
-    data:
-      username: '18800000001'
-      password:
-      # 是否有依赖业务，为空或者false则表示没有
-    dependence_case: False
-        # 依赖的数据
-    dependence_case_data:
-    assert:
-      # 断言接口状态码
-      errorCode:
-        jsonpath: $.errorCode
-        type: ==
-        value: -1
-        AssertType:
-      # 断言接口返回的username
-      errorMsg:
-        jsonpath: $.errorMsg
-        type: ==
-        value: "账号密码不匹配！"
-        AssertType:
-    sql:
-
-login_04:
-    host: ${{host()}}
-    url: /user/login
-    method: POST
-    detail: 输入非1开头的手机号码
-    headers:
-      Content-Type: multipart/form-data;
-    # 请求的数据，是 params 还是 json、或者file、data
-    requestType: data
-    # 是否执行，空或者 true 都会执行
-    is_run:
-    data:
-      username: '28800000001'
-      password: '12345'
-      # 是否有依赖业务，为空或者false则表示没有
-    dependence_case: False
-        # 依赖的数据
-    dependence_case_data:
-    assert:
-      # 断言接口状态码
-      errorCode:
-        jsonpath: $.errorCode
-        type: ==
-        value: -1
-        AssertType:
-      # 断言接口返回的username
-      errorMsg:
-        jsonpath: $.errorMsg
-        type: ==
-        value: "账号密码不匹配！"
-        AssertType:
-    sql:
-
-login_05:
-    host: ${{host()}}
-    url: /user/login
-    method: POST
-    detail: 输入手机号码小于11位
-    headers:
-      Content-Type: multipart/form-data;
-    # 请求的数据，是 params 还是 json、或者file、data
-    requestType: data
-    # 是否执行，空或者 true 都会执行
-    is_run:
-    data:
-      username: '1880000000'
-      password: '12345'
-      # 是否有依赖业务，为空或者false则表示没有
-    dependence_case: False
-        # 依赖的数据
-    dependence_case_data:
-    assert:
-      # 断言接口状态码
-      errorCode:
-        jsonpath: $.errorCode
-        type: ==
-        value: -1
-        AssertType:
-      # 断言接口返回的username
-      errorMsg:
-        jsonpath: $.errorMsg
-        type: ==
-        value: "账号密码不匹配！"
-        AssertType:
-    sql:
-
-login_06:
-    host: ${{host()}}
-    url: /user/login
-    method: POST
-    detail: 输入手机号码大于于11位
-    headers:
-      Content-Type: multipart/form-data;
-    # 请求的数据，是 params 还是 json、或者file、data
-    requestType: data
-    # 是否执行，空或者 true 都会执行
-    is_run:
-    data:
-      username: '18800000000'
-      password: '12345'
-      # 是否有依赖业务，为空或者false则表示没有
-    dependence_case: False
-        # 依赖的数据
-    dependence_case_data:
-    assert:
-      # 断言接口状态码
-      errorCode:
-        jsonpath: $.errorCode
-        type: ==
-        value: -1
-        AssertType:
-      # 断言接口返回的username
-      errorMsg:
-        jsonpath: $.errorMsg
-        type: ==
-        value: "账号密码不匹配！"
-        AssertType:
-    sql:
-
-login_07:
-    host: ${{host()}}
-    url: /user/login
-    method: POST
-    detail: 手机号码为空
-    headers:
-      Content-Type: multipart/form-data;
-    # 请求的数据，是 params 还是 json、或者file、data
-    requestType: data
-    # 是否执行，空或者 true 都会执行
-    is_run:
-    data:
-      username:
-      password: '12345'
-      # 是否有依赖业务，为空或者false则表示没有
-    dependence_case: False
-        # 依赖的数据
-    dependence_case_data:
-    assert:
-      # 断言接口状态码
-      errorCode:
-        jsonpath: $.errorCode
-        type: ==
-        value: -1
-        AssertType:
-      # 断言接口返回的username
-      errorMsg:
-        jsonpath: $.errorMsg
-        type: ==
-        value: "账号密码不匹配！"
-        AssertType:
-    sql:
-
-login_08:
-    host: ${{host()}}
-    url: /user/login
-    method: POST
-    detail: 手机号码首位包含空格
-    headers:
-      Content-Type: multipart/form-data;
-    # 请求的数据，是 params 还是 json、或者file、data
-    requestType: data
-    # 是否执行，空或者 true 都会执行
-    is_run:
-    data:
-      username: ' 18867507063 '
-      password: '12345'
-      # 是否有依赖业务，为空或者false则表示没有
-    dependence_case: False
-        # 依赖的数据
-    dependence_case_data:
-    assert:
-      # 断言接口状态码
-      errorCode:
-        jsonpath: $.errorCode
-        type: ==
-        value: -1
-        AssertType:
-      # 断言接口返回的username
-      errorMsg:
-        jsonpath: $.errorMsg
-        type: ==
-        value: "账号密码不匹配！"
-        AssertType:
-    sql:
+  sql:

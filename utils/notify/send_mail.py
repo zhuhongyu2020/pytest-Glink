@@ -1,8 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-# @Time   : 2022/3/29 14:57
-# @Author : 余少琪
 描述: 发送邮件
 """
 
@@ -31,7 +27,7 @@ class SendEmail:
         @param content: 发送内容
         @return:
         """
-        user = "余少琪" + "<" + self.send_user + ">"
+        user = "朱宏玉" + "<" + self.send_user + ">"
         message = MIMEText(content, _subtype='plain', _charset='utf-8')
         message['Subject'] = sub
         message['From'] = user
@@ -76,7 +72,7 @@ class SendEmail:
 
 
         **********************************
-        jenkins地址：https://121.xx.xx.47:8989/login
+        jenkins地址：http://10.32.69.25:8080/jenkins/job/pytest-Glink/
         详细情况可登录jenkins平台查看，非相关负责人员可忽略此消息。谢谢。
         """
         self.send_mail(user_list, sub, content)

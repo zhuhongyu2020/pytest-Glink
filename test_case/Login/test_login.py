@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time   : 2022-08-01 10:57:25
-# @Author : 七月
+# @Time   : 2022-08-03 15:29:21
+# @Author : 朱宏玉
 
 
 import allure
@@ -18,7 +18,7 @@ TestData = CaseData(ConfigHandler.data_path + r'Login/login.yaml').case_process(
 re_data = regular(str(TestData))
 
 
-@allure.epic("开发平台接口")
+@allure.epic("Glink平台")
 @allure.feature("登录模块")
 class TestLogin:
 

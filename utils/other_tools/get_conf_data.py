@@ -1,12 +1,4 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-"""
-# @Time    : 2022/5/10 18:55
-# @Author  : 余少琪
-# @Email   : 1603453211@qq.com
-# @File    : get_conf_data
-# @describe:
-"""
+
 
 from common.setting import ConfigHandler
 from utils.read_files_tools.yaml_control import GetYamlData

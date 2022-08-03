@@ -1,7 +1,4 @@
-"""
-# @Time   : 2022/3/28 10:52
-# @Author : 余少琪
-"""
+
 import types
 from typing import Dict, Text, Callable
 

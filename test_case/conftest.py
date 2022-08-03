@@ -1,7 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time   : 2022/3/30 14:12
-# @Author : 余少琪
+
 import pytest
 import time
 import allure
@@ -14,7 +11,6 @@ from utils.logging_tool.log_control import INFO, ERROR, WARNING
 from Enums.yamlData_enum import YAMLDate
 from utils.read_files_tools.clean_files import del_file
 from utils.other_tools.allure_data.allure_tools import allure_step, allure_step_no
-
 
 @pytest.fixture(scope="session", autouse=False)
 def clear_report():
@@ -57,12 +53,9 @@ def work_login_init():
     :return:
     """
 
-    url = "https://www.wanandroid.com/user/login"
-    data = {
-        "username": 18800000001,
-        "password": 123456
-    }
-    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    url = "https://lo9.glkyun.cn/sso/Account/LoginRedirect"
+    data = "{\r\n    \"ReturnUrl\": \"/sso/connect/authorize/callback?client_id=lo_ptl_client&redirect_uri=https%3A%2F%2Flo9.glkyun.cn%2Fportal%2Foidc%2Fcallbackn.html&response_type=code&scope=openid%20profile%20lo_ptl%20lo_ofs%20lo_g_doc%20lo_gw&state=a63a5b41e89c48f7ae9a74f49c55a605&code_challenge=3Ye4G3L5Y6Eqv4CBscqnbT1kYw3wqE5wPIxP2PFV4QE&code_challenge_method=S256&response_mode=query\",\r\n    \"__RequestVerificationToken\": \"\",\r\n    \"LoginId\": \"liusj-e\",\r\n    \"LoginIdentity\": \"b0039003e003900280077002700770028007b006a00780078007c00640079006f\",\r\n    \"ImageAuthCode\": \"\",\r\n    \"RememberLogin\": \"true\"\r\n}"
+    headers = {'Content-Type': 'application/json;charset=UTF-8'}
     # 请求登录接口
 
     res = requests.post(url=url, data=data, verify=True, headers=headers)

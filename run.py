@@ -1,7 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time   : 2022/3/29 15:01
-# @Author : 余少琪
+
 import os
 import traceback
 import pytest
@@ -15,6 +12,7 @@ from utils.notify.wechat_send import WeChatSend
 from utils.notify.ding_talk import DingTalkSendMsg
 from utils.notify.send_mail import SendEmail
 from utils.notify.lark import FeiShuTalkChatBot
+from utils.read_files_tools.case_automatic_control import TestCaseAutomaticGeneration
 from utils.read_files_tools.clean_files import del_file
 from utils.other_tools.allure_data.error_case_excel import ErrorCaseExcel
 
@@ -33,11 +31,8 @@ def run():
                   开始执行{}项目...
                 """.format(project_name)
         )
-
-        del_file(ConfigHandler.cache_path)
-
-        # # 判断现有的测试用例，如果未生成测试代码，则自动生成
-        # TestCaseAutomaticGeneration().get_case_automatic()
+        # 判断现有的测试用例，如果未生成测试代码，则自动生成
+        TestCaseAutomaticGeneration().get_case_automatic()
 
         pytest.main(['-s', '-W', 'ignore:Module already imported:pytest.PytestWarning',
                      '--alluredir', './report/tmp', "--clean-alluredir"])
@@ -54,27 +49,28 @@ def run():
                    """
 
         os.system(r"allure generate ./report/tmp -o ./report/html --clean")
+        # 判断通知类型，根据配置发送不同的报告通知
         allure_data = AllureFileClean().get_case_count()
-        notification_mapping = {
-            NotificationType.DING_TALK.value: DingTalkSendMsg(allure_data).send_ding_notification,
-            NotificationType.WECHAT.value: WeChatSend(allure_data).send_wechat_notification,
-            NotificationType.EMAIL.value: SendEmail(allure_data).send_main,
-            NotificationType.FEI_SHU.value: FeiShuTalkChatBot(allure_data).post
-        }
-
-        if get_notification_type() != NotificationType.DEFAULT.value:
-            notification_mapping.get(get_notification_type())()
-
-        if get_excel_report_switch():
-            ErrorCaseExcel().write_case()
-
-        # 程序运行之后，自动启动报告，如果不想启动报告，可注释这段代码
-        os.system(f"allure serve ./report/tmp -h 127.0.0.1 -p 9999")
+        if get_notification_type() == NotificationType.DEFAULT.value:
+            pass
+        elif get_notification_type() == NotificationType.DING_TALK.value:
+            DingTalkSendMsg(allure_data).send_ding_notification()
+        elif get_notification_type() == NotificationType.WECHAT.value:
+            WeChatSend(allure_data).send_wechat_notification()
+            if get_excel_report_switch():
+                ErrorCaseExcel().write_case()
+        elif get_notification_type() == NotificationType.EMAIL.value:
+            SendEmail(allure_data).send_main()
+        elif get_notification_type() == NotificationType.FEI_SHU.value:
+            FeiShuTalkChatBot(allure_data).post()
+        else:
+            raise ValueError("通知类型配置错误，暂不支持该类型通知")
+        # os.system(f"allure serve ./report/tmp -h 127.0.0.1 -p 9999")
 
     except Exception:
         # 如有异常，相关异常发送邮件
         e = traceback.format_exc()
-        send_email = SendEmail(AllureFileClean.get_case_count())
+        send_email = SendEmail()
         send_email.error_mail(e)
         raise
 

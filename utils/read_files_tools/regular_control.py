@@ -1,8 +1,4 @@
-"""
-Desc : 自定义函数调用
-# @Time : 2022/4/2 9:32 上午
-# @Author : liuYunWin
-"""
+
 import re
 import datetime
 import random

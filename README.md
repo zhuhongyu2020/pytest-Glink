@@ -1,23 +1,9 @@
 
 ## 框架介绍
-
 本框架主要是基于 Python + pytest + allure + log + yaml + mysql + redis + 钉钉通知 + Jenkins 实现的接口自动化框架。
-
-* git地址: [https://gitee.com/yu_xiao_qi/pytest-auto-api2](https://gitee.com/yu_xiao_qi/pytest-auto-api2)
-* 项目参与者: 余少琪
-* 技术支持邮箱: 1603453211@qq.com
-* 个人博客地址:  [https://blog.csdn.net/weixin_43865008](https://blog.csdn.net/weixin_43865008)
-
-如果对您有帮助，请点亮 小星星 以表支持，谢谢
-
-![img.png](Files/image/starts.png)
-
 ## 前言
 
-公司突然要求你做自动化，但是没有代码基础不知道怎么做？或者有自动化基础，但是不知道如何系统性的做自动化，
-放在yaml文件中维护，不知道如何处理多业务依赖的逻辑？
 
-那么这里 Gitte 中开源的自动化框架，将为你解决这些问题。
 框架主要使用 python 语言编写，结合 pytest 进行二次开发，用户仅需要在 yaml 文件中编写测试用例，
 编写成功之后，会自动生成 pytest 的代码，零基础代码小白，也可以操作。
 
@@ -37,14 +23,6 @@
 * 钉钉、企业微信通知: 支持多种通知场景，执行成功之后，可选择发送钉钉、或者企业微信、邮箱通知
 * 自定义拓展字段: 如用例中需要生成的随机数据，可直接调用
 * 多线程执行
-
-## 联系方式
-
-因为微信群二维码，有效期只有15天，如果有遇到的问题的同学，可以先加微信：being_chaoren
-
-加微信的朋友，需备注是从Gitee上看到的加的好友，加上之后，会将你们拉入一个自动化测试微信交流群
-
-![img.png](Files/image/wechat.png)
 
 ## 目录结构
 
@@ -101,7 +79,7 @@
     ├── Readme.md                       // help
     ├── pytest.ini                  
     ├── run.py                           // 运行入口  
-    
+
 
 ## 依赖库
 
@@ -153,23 +131,7 @@
 
 如上环境如都搭建好，则安装本框架的所有第三方库依赖，执行如下命令
 
-    pip3 install -r requirements.txt
-
-
-![img.png](Files/image/安装异常.png)
-
-如果在安装过程中出现如下 Could not find a version 类似的异常， 不用担心，可能是因为你安装的python环境
-版本和我不一致导致的，直接 pip install 库名称，不指定版本安装就可以了。
-
-如上方截图说没有找到 asgiref==3.5.1,报错的意思是，没有找到3.5.1这个版本，那么直接控制台输入 pip3 install asgiref 进行安装即可
-
-
-## 接口文档
-
-这里非常感谢一位安卓的朋友，给我推荐了开源的接口文件，框架中会针对开源接口中的登录、个人信息、收藏（新增、查看、修改、删除）等功能，编写结果自动化案例
-下方是接口文档地址，大家可以自行查看（因为开源的接口，里面有些逻辑性的功能，如修改被删除的网址接口并没有过多的做判断，
-因此用例中只写了一些基础的场景，仅供大家参考。）
-[https://wanandroid.com/blog/show/2](https://wanandroid.com/blog/show/2)
+    pip install -r requirements.txt
 
 ## 如何创建用例
 
@@ -207,7 +169,7 @@ collect_tool_list.yaml 的用例文件，请求/lg/collect/usertools/json这个�
       allureStory: 收藏网址列表接口
     
     collect_tool_list_01:
-        host: ${{host()}}
+        host: ${{host}}
         url: /lg/collect/usertools/json
         method: GET
         detail: 查看收藏网址列表接口
@@ -215,8 +177,8 @@ collect_tool_list.yaml 的用例文件，请求/lg/collect/usertools/json这个�
           Content-Type: multipart/form-data;
           # 这里cookie的值，写的是存入缓存的名称
           cookie: login_cookie
-        # 请求的数据，是 params 还是 json、或者file、data
-        requestType: data
+        # 请求的数据，是 params 还是 json、或者file、date
+        requestType: date
         # 是否执行，空或者 true 都会执行
         is_run:
         data:
@@ -237,7 +199,7 @@ collect_tool_list.yaml 的用例文件，请求/lg/collect/usertools/json这个�
 
 get请求我们 requestType 写的是 params ，这样发送请求时，我们会将请求参数拼接中url中，最终像服务端发送请求的地址格式会为：
 
-    如: ${{host()}}/lg/collect/usertools/json?pageNum=1&pageSize=10
+    如: ${{host}}/lg/collect/usertools/json?pageNum=1&pageSize=10
 
 ### 如何发送post请求
 
@@ -248,7 +210,7 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
       allureStory: 收藏网址接口
     
     collect_addtool_01:
-        host: ${{host()}}
+        host: ${{host}}
         url: /lg/collect/addtool/json
         method: POST
         detail: 新增收藏网址接口
@@ -256,12 +218,12 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
           Content-Type: multipart/form-data;
           # 这里cookie的值，写的是存入缓存的名称
           cookie: login_cookie
-        # 请求的数据，是 params 还是 json、或者file、data
-        requestType: data
+        # 请求的数据，是 params 还是 json、或者file、date
+        requestType: date
         # 是否执行，空或者 true 都会执行
         is_run:
         data:
-          name: 自动化生成收藏网址${{random_int()}}
+          name: 自动化生成收藏网址${{random_int}}
           link: https://gitee.com/yu_xiao_qi/pytest-auto-api2
         # 是否有依赖业务，为空或者false则表示没有
         dependence_case: False
@@ -275,7 +237,7 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
             value: 0
             AssertType:
         sql:
-            
+
 这里post请求，我们需要请求的数据格式是json格式的，那么requestType 则填写为json格式。
 包括 PUT/DELETE/HEAD 请求的数据格式都是一样的，唯一不同的就是需要配置 reuqestType，
 如果需要请求的参数是json格式，则requestType我们就填写json，如果是url拼接的形式，我们就填写 params
@@ -313,9 +275,9 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
 
 上方的这个案例，请求参数即上传了文件，又上传了其他参数
 
-* 1、file： 这里下方上传的是文件参数
-* 2、data： 这个data下方是该接口，除了文件参数，还需要上传其他的参数，这个参数会以json的方式传给服务端（如果没有其他参数，可以不用写这个）
-* 3、params： 这个是除了文件参数以外的，上传的其他参数，这个参数是拼接在url后方的
+1、file： 这里下方上传的是文件参数
+2、data： 这个data下方是该接口，除了文件参数，还需要上传其他的参数，这个参数会以json的方式传给服务端（如果没有其他参数，可以不用写这个）
+3、params： 这个是除了文件参数以外的，上传的其他参数，这个参数是拼接在url后方的
 
 ![img.png](Files/image/files_up.png)
 
@@ -338,7 +300,7 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
       allureStory: 获取登录验证码
     
     send_sms_code_01:
-        host: ${{host()}}
+        host: ${{host}}
         url: /mobile/sendSmsCode
         method: POST
         detail: 正常获取登录验证码
@@ -379,7 +341,7 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
       allureStory: 登录
     
     login_02:
-        host: ${{host()}}
+        host: ${{host}}
         url: /login/phone
         method: POST
         detail: 登录输入错误的验证码
@@ -468,34 +430,6 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
             jsonpath: $.code
             replace_key: $.data.code 
 
-### 将依赖的数据直接存入缓存中
-
-按照上方我们所写的，现在用到的是  replace_key去对原先用例中的内容进行替换，当然我们也提供了可以直接将数据存入缓存中
-这里我们需要用到set_cache的关键字。
-
-      - case_id: get_code_01
-        dependent_data:
-          # 提取接口响应的code码
-          - dependent_type: response
-            jsonpath: $.code
-            # 讲我们提取到的内容直接存入缓存中，set_cache后方定义的值，是我们缓存的名称
-            # 名称可以自定义， set_cache 和 repalce_key 的方法可以二选一，两种都支持
-            set_cache: verify_code
-
-
-### 将当前用例的请求值或者响应值存入缓存中
-
-有些小伙伴之前有反馈过，比如想要做数据库的断言，但是这个字段接口没有返回，我应该怎么去做校验呢？
-程序中提供了current_request_set_cache这个关键字，可以将当前这条用例的请求数据 或者响应数据 给直接存入缓存中
-如下案例所示：
-
-    current_request_set_cache:
-      # 1、response 从响应中提取内容  2、request从请求中提取内容
-      - type: response
-        jsonpath: $.data.data.[0].id
-        # 自定义的缓存名称
-        name: test_query_shop_brand_list_02_id
-
 ### 请求用例时参数需要从数据库中提取
 
 ![img.png](Files/image/img2.png)
@@ -503,8 +437,6 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
 如上图所示，用例中的 dependent_type 需要填写成 sqlData。
 当你的依赖类型为 sqlData 数据库的数据时，那么下方就需要再加一个 setup_sql 的参数，下方填写需要用到的sql语句
 
-注意case_id： 因为程序设计原因，通常情况下，我们关联的业务，会发送接口请求，但是如果我们依赖的是sql的话，
-是不需要发送请求的，因此我们如果是从数据库中提取数据作为参数的话，我们case_id 需要写self ，方便程序中去做区分
 
     ApplyVerifyCode_01:
         host: ${{host}}
@@ -513,7 +445,7 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
         detail: 校验已经审核通过的供应商手机号码
         headers:
           Content-Type: application/json;charset=UTF-8
-        # 请求的数据，是 params 还是 json、或者file、data
+        # 请求的数据，是 params 还是 json、或者file、date
         requestType: params
         # 是否执行，空或者 true 都会执行
         is_run:
@@ -524,7 +456,7 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
         dependence_case: True
             # 依赖的数据
         dependence_case_data:
-          - case_id: self
+          - case_id: ApplyVerifyCode_01
             dependent_data:
               - dependent_type: sqlData
                 jsonpath: $.username
@@ -633,48 +565,10 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
 
 那么我们就在 regularControl.py 文件中，编写 get_time 的方法。编写好之后，在用例中编写规则如下：
 
-    reason: 审核时间${{get_time()}}
-使用 ${{函数名称()}}的方法，程序调用时，会生成当前时间。在regularControl.py 文件中，我还封装了一些常用的随机数，如随机生成男生姓名、女生姓名、身份证、邮箱、手机号码之类的，方便大家使用。 如，随机生成邮箱，我们在用例中编写的格式为 ${{get_email}} 。
+    reason: 审核时间${{get_time}}
+使用 ${{函数名称}}的方法，程序调用时，会生成当前时间。在regularControl.py 文件中，我还封装了一些常用的随机数，如随机生成男生姓名、女生姓名、身份证、邮箱、手机号码之类的，方便大家使用。 如，随机生成邮箱，我们在用例中编写的格式为 ${{get_email}} 。
 
 其他所需随机生成的数据，可在文件中自行添加。
-
-### 自动化函数传递参数
-
-首先同样和上方一样，创建一个随机生成的方法，改方法支持接收参数
-
-    @classmethod
-    def random_int(cls, min_num, max_num):
-        """
-        随机生成指定范围的随机数
-        @param min_num: 最小数字
-        @param max_num: 最大数字
-        @return:
-        """
-        num = random.randint(int(min_num), int(max_num))
-        return num
-
-
-在用例中，假设我们需要获取一个 1-10之间的随机数，那么我们直接这样调用该数据即可
-
-    reason: {{random_int(1， 10)}}
-
-### 断言http响应状态码
-
-相信有些小伙伴在做接口测试的过程中，有部分接口是没有任何响应的，那么在没有响应数据的情况下
-我们就只能通过 http的状态码去判断这条用例是否通过，我们可以这样写
-
-    assert:
-      status_code: 200
-
-我们直接在assert下方添加一个 status_code 参数，状态码我们判断其为 200
-
-### 用例中添加等待时间
-
-程序中可以设定接口请求之后，等待时长，假设A接口依赖B接口的业务，A接口请求完时，我们需要让他等待几秒钟
-再次请求B接口，这样的话，我们可以使用sleep关键字
-
-    sleep: 3
-
 
 ### 断言类型
 下放截图中，是所有断言支持的类型
@@ -753,89 +647,11 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
       - select * from users;
       - select * from goods;
 
-### 使用teardown功能，做数据清洗
-
-通常情况下，我们做自动化所有新增的数据，我们测试完成之后，都需要讲这些数据删除，程序中支持两种写法
-一种是直接调用接口进行数据删除。另外一种是直接删除数据库中的数据，建议使用第一种，直接调用业务接口删除对应的数据
-
-
-1、下面我们先来看看第一种删除方式，teardown的功能，因为需要兼容较多的场景，因此使用功能上相对也会比较复杂
-需要小伙伴们一个一个去慢慢的理解。
-
-下面为了方便大家对于teardown功能的理解，我会针对不同的场景进行举例：
-
-* 假设现在我们有一个新增接口，写完之后，我们需要先调用查询接口获取到新增接口的ID，然后再进行删除
-那么此时会设计到两个场景，首先执行新增接口ID，然后再拿到响应（这里有个逻辑上的先后关系，查询接口，是先发送请求，在提取数据）
-  获取到查询的ID之后，我们在执行删除，删除的话，我们是直接发送请求
-  
-那么针对这个场景，我们就需要有个关键字去做区分，什么场景下先发送请求，什么场景下后发送请求，下面我们来看一下案例，方便大家理解
-
-    teardown:
-      # 查看品牌审核列表，获取品牌的apply_id
-      - case_id: query_apply_list_01
-        # 注意这里我们是先发送请求，在拿到自己响应的内容，因此我们这个字段需要写param_prepare
-        param_prepare:
-            # 因为是获取自己的响应内容，我们dependent_type需要写成 self_response
-          - dependent_type: self_response
-            # 通过jsonpath的方法，获取query_apply_list_01这个接口的响应内容
-            jsonpath: $.data.data.[0].applyId
-            # 将内容存入缓存，这个是自定义的缓存名称
-            set_cache: test_brand_apply_initiate_apply_01_applyId
-            
-            # 支持同时存多个数据，只会发送一次请求
-          - dependent_type: self_response
-            jsonpath: $.data.data.[0].brandName
-            set_cache: test_brand_apply_initiate_apply_01_brandName
-        
-      # 删除
-      - case_id: delete_01
-        # 删除的话，我们是直接发送请求的，因此我们这里写 send_request
-        send_request:
-            # 我们上方已经拿到了ID，并且将ID存入缓存中，因此这里依赖数据的类型为cache，直接从缓存中提取
-          - dependent_type: cache
-            # 这个是缓存名称
-            cache_data: test_brand_apply_initiate_apply_01_applyId
-            # 通过relace_key 去替换 delete_01 中的 applyID参数
-            replace_key: $.data.applyId
-
-* 那么有些小伙伴会在想，同样我们以上方的接口场景为例，有些小伙伴会说，我公司的新增的接口，有直接返回ID，不需要调用查询接口
-程序中当然也支持这种场景，我们只需要这么编写
-
-      - case_id: process_apply_01
-        # 同样这么写 send_request
-        send_request:
-            # 这里我们从响应中获取
-          - dependent_type: response
-            # 通过jsonpath的方式，获取响应的内容
-            jsonpath: $.data.id
-            # 使用repalce_key进行替换
-            replace_key: $.data.applyId  
-
-* 程序中也支持从请求里面获取内容，编写规则如下
-
-      - case_id: process_apply_01
-        # 同样这么写 send_request
-        send_request:
-            # 这里我们从响应中获取
-          - dependent_type: request
-            # 通过jsonpath的方式，获取请求的内容
-            jsonpath: $.data.id
-            # 使用repalce_key进行替换
-            replace_key: $.data.applyId
-
 ### 自动生成test_case层代码
 
 小伙伴们在编写好 yaml 用例之后，可以直接执行 caseAutomaticControl.py ，会跟你设计的测试用例，生成对应的代码。
 
 ![img.png](Files/image/write_test_case.png)
-
-### 发送钉钉通知通知
-
-![img.png](Files/image/dingding.png)
-
-### 发送企业微信通知
-
-![img.png](Files/image/wechart.png)
 
 ### 日志打印装饰器
 
@@ -860,30 +676,4 @@ get请求我们 requestType 写的是 params ，这样发送请求时，我们�
 ![img.png](Files/image/allure.png)
 
 ![img.png](Files/image/allure2.png)
-
-### 其他
-
-本框架为2.0升级版本，升级之后的功能，现在基本上都是在yaml中维护用例，无需测试人员编写代码，
-和 1.0版本的区别在于，1.0版本还需要测试人员手动编写多业务逻辑的代码，需要有一定基础编码的能力
-
-但是1.0版本，同样也可以自动生成代码，yaml中维护数据，对相对简单，如果偏于yaml简单维护的同学，可以切换查看1.0分支
-下方是1.0分支的操作文档：[点我查看](https://blog.csdn.net/weixin_43865008/article/details/121903028?spm=1001.2014.3001.5502)
-
-*******************************************************
-
-以上便是整个框架的使用说明，这个框架属于个人业余时间开发，大家如果在使用中遇到什么问题，或者有相关建议，可以随时反馈给我，
-_框架内容会随着大家的反馈，持续更新！邮箱地址：1602343211@qq.com
-
-如果觉得框架有帮助到你，麻烦收藏一下哦~~谢谢。:)
-
-## 版本更新记录
-* V2.0.0(2022-04-07)
-  [重构] 新增多业务逻辑依赖处理，统一改成yaml文件中维护用例，无需编写代码，基于V1.0版本进行重构
-* [查看更多记录点此查看](https://gitee.com/yu_xiao_qi/pytest-auto-api2/wikis/Home)
-
-## 赞赏
-
-如果这个库有帮助到你并且你很想支持库的后续开发和维护，那么你可以扫描下方二维码随意打赏我，我将不胜感激
-
-![img_1.png](Files/image/img_1.png)  ![img_1.png](Files/image/weixin_pay.png)
 

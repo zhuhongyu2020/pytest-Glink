@@ -1,7 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time   : 2021/11/26 18:27
-# @Author : 余少琪
+
 """
 mysql 封装，支持 增、删、改、查
 """
@@ -172,7 +169,4 @@ class AssertExecution(MysqlDB):
             raise error_data
 
 
-if __name__ == '__main__':
-    a = MysqlDB()
-    b = a.query(sql="select * from `test_obp_configure`.lottery_prize where activity_id = 3")
-    print(b)
+
