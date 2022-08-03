@@ -1,7 +1,6 @@
 
 # -*- coding: utf-8 -*-
 
-
 import os
 from utils.times_tool.time_control import now_time_day
 
